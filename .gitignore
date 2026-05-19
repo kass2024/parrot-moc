@@ -1,0 +1,29 @@
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# Database dumps and backups
+*.sql
+*.sql.gz
+*.dump
+
+# Logs and runtime data
+*.log
+*_log.txt
+email_response_log.txt
+sendmail_log.txt
+Register/sendmail_log.txt
+Register/email_response_log.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# PHP / uploads (if added later)
+vendor/
+uploads/tmp/

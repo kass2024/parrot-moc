@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parrot Visa Interview</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .left-panel {
+            flex: 2;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            padding-right: 20px;
+            border-right: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .right-panel {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+
+        .chat-title {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chat-box {
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background: #fff;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            min-height: 300px;
+        }
+
+        .message {
+            background: #e3f0ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            max-width: 90%;
+            line-height: 1.5;
+        }
+
+        .input-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .input-area input {
+            flex: 1 1 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-area button {
+            flex: 1 1 calc(50% - 10px);
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            min-width: 48%;
+            box-sizing: border-box;
+        }
+
+        .score-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .score-item {
+            margin-bottom: 12px;
+            word-break: break-word;
+        }
+
+        .score-item span {
+            float: right;
+            font-size: 14px;
+        }
+
+        .score-bar {
+            background: #eee;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 3px;
+        }
+
+        .score-fill {
+            background: #4caf50;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            height: 80px;
+            margin-right: 10px;
+        }
+
+        .license-info {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+            font-size: 14px;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .left-panel,
+            .right-panel {
+                flex: 1 1 100%;
+                padding: 0 !important;
+                border: none !important;
+                margin-top: 10px;
+            }
+
+            .input-area {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .input-area input,
+            .input-area button {
+                width: 100%;
+            }
+
+            .input-area button {
+                margin-top: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-area button {
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .input-area input {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <div class="chat-title">
+            <div class="logo">
+                <img src="logo.png" alt="Logo" />
+                Parrot Visa Mock Interview
+            </div>
+            <button id="toggle-voice">🔊 On</button>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will appear here dynamically -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="answer-input" placeholder="Type your answer here..." />
+            <button id="mic-button">🎙️</button>
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+        <div class="score-title">Score Categories</div>
+
+        <!-- License Info box (beautified) -->
+        <div class="license-info">
+            <div>🌐 <b>UTC Time:</b> <span id="now-utc">Loading...</span></div>
+            <div>⏳ <b>License expires in:</b> <span id="license-countdown">Loading...</span></div>
+        </div>
+
+        <div class="score-item">Study Plan Clarity <span id="score1-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score1"></div></div>
+        </div>
+
+        <div class="score-item">University Choice Rationale <span id="score2-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score2"></div></div>
+        </div>
+
+        <div class="score-item">Motivation for Studying in US <span id="score3-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score3"></div></div>
+        </div>
+
+        <div class="score-item">Financial Stability <span id="score4-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score4"></div></div>
+        </div>
+
+        <div class="score-item">Ties to Home Country <span id="score5-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score5"></div></div>
+        </div>
+
+        <div class="score-item">Post-Graduation Plans <span id="score6-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score6"></div></div>
+        </div>
+
+        <div class="score-item">English Proficiency <span id="score7-value">0/10</span>
+            <div class="score-bar"><div class="score-fill" id="score7"></div></div>
+        </div>
+
+        <!-- Finish Interview button -->
+        <button id="finish-interview-btn" style="margin-top: 15px; padding: 10px 20px; background: #dc3545; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+            Finish Interview
+        </button>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="js/interview.js"></script>
+
+</body>
+</html>
