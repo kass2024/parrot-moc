@@ -103,7 +103,7 @@ document.getElementById('searchInput').addEventListener('keyup', function () {
 
 // Copy license link and mark as issued
 function issueLicense(licenseKey, licenseId) {
-    const url = `https://www.applyparrot.com/index.html?license=${licenseKey}`;
+    const url = `https://www.parrotmoc.online/index.html?license=${licenseKey}`;
     navigator.clipboard.writeText(url).then(() => {
         alert("✅ License link copied:\n" + url);
     });
